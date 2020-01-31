@@ -13,10 +13,12 @@ app.use(express.static("public"));
 // this is how you use body-parser module
 app.use( bodyParser.urlencoded( {extended : true} ) );
 
+// get method for home route
 app.get("/", function(req, res){
     res.sendFile(__dirname + "/signup.html");
 });
 
+// post method for handling the sign up stuff - name, email etc
 app.post("/", function(req, res) {    
     var firstName = req.body.fName;
     var lastName = req.body.lName;
@@ -24,7 +26,7 @@ app.post("/", function(req, res) {
 
     //console.log(firstName, lastName, email);
 
-    // * mail chimp stuff begins *
+    // *** mail chimp stuff begins ***
 
     // you create a javascript object that will contain your data, that needs to be posted
     var data = {
@@ -65,6 +67,9 @@ app.post("/", function(req, res) {
             // mailchimp's server sends a response
             // and we can use the status code to see what's going on
             console.log("The response status code is: " + response.statusCode);
+            
+            // playing around with body -- we don't actually use it 
+            //console.log(body.new_members.email_address);
 
             if (response.statusCode === 200) {
                 //res.send("Successfully subscribed!");
